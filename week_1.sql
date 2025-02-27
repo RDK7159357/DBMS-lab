@@ -49,8 +49,20 @@ SELECT * FROM Employee;
 
 -- Update Employee
 UPDATE Employee SET Job = 'developer' WHERE Job = 'programmer';
+UPDATE Employee SET Job = 'clerk' WHERE Job = 'swiggy';
 
 UPDATE Employee SET Emp_no = 191 WHERE Emp_no = 10;
+
+UPDATE EMPLOYEE set SALARY_NO=52000 where EMP_NO=10;
+UPDATE EMPLOYEE set SALARY_NO=67800 where EMP_NO=20;
+UPDATE EMPLOYEE set SALARY_NO=45600 where EMP_NO=30;
+UPDATE EMPLOYEE set SALARY_NO=89200 where EMP_NO=40;
+UPDATE EMPLOYEE set SALARY_NO=73400 where EMP_NO=50;
+UPDATE EMPLOYEE set SALARY_NO=56700 where EMP_NO=60;
+UPDATE EMPLOYEE set SALARY_NO=92500 where EMP_NO=70;
+UPDATE EMPLOYEE set SALARY_NO=48900 where EMP_NO=80;
+UPDATE EMPLOYEE set SALARY_NO=60300 where EMP_NO=90;
+UPDATE EMPLOYEE set SALARY_NO=81700 where EMP_NO=100;
 
 -- Rename Column
 ALTER TABLE Employee RENAME COLUMN Job TO Designation;
@@ -84,6 +96,139 @@ UPDATE EMPLOYEE set EMPLOYEE.DEPT_NO=50 where Employee.EMP_NO=70;
 UPDATE EMPLOYEE set EMPLOYEE.DEPT_NO=60 where Employee.EMP_NO=80;
 UPDATE EMPLOYEE set EMPLOYEE.DEPT_NO=50 where Employee.EMP_NO=90;
 UPDATE EMPLOYEE set EMPLOYEE.DEPT_NO=40 where Employee.EMP_NO=100;
+
+Update Employee set job = 'manager' where emp_no = 10;
+Update Employee set job = 'manager' where emp_no = 20;
+Update Employee set job = 'manager' where emp_no = 30;
+Update Employee set job = 'manager' where emp_no = 50;
+Update Employee set job = 'manager' where emp_no = 60;
+
+-- Exercise 1 
+-- 1
+SELECT E_name,DEPT_NO, AVG(SALARY_NO) AS AVG_SALARY
+FROM EMPLOYEE
+WHERE DEPT_NO = 10
+GROUP BY E_name,DEPT_NO;
+
+-- 2
+SELECT  EMPLOYEE.DEPT_NO, Min(EMPLOYEE.SALARY_NO) AS MIN_SALARY
+from EMPLOYEE
+Group by Dept_no;
+
+-- 3
+SELECT Employee.DEPT_NO, Count(Employee.DEPT_NO) AS COUNT_EMPLOYEE
+from EMPLOYEE
+Group by DEPT_NO;
+
+-- 4
+SELECT D.DEPT_NAME, COUNT(E.EMP_NO) as Num_Employees
+from EMPLOYEE E
+JOIN DEPARTMENT D On E.Dept_no = D.Dept_no
+Group by D.Dept_name;
+
+-- 5
+Select Emp_no, E_name, Job, Mgr_no, Dept_no
+from EMPLOYEE
+where EMPLOYEE.E_NAME like 'B%' or EMPLOYEE.E_NAME like 'C%';
+
+-- 6
+SELECT E_NAME, SALARY_NO 
+FROM EMPLOYEE 
+Where SALARY_NO >= 50000;
+-- GROUP by E_NAME
+-- Having MAX(SALARY_NO) > 5000;
+
+-- Exercise 2
+-- 1
+Select Job , Avg(Salary_no) as Avg_Salary
+from EMPLOYEE
+Group by Job;
+
+-- 2
+Select Job , Avg(Salary_no) as Avg_Salary
+from EMPLOYEE
+where Job !='manager'
+Group by Job;
+
+-- 3
+SELECT DEPT_NO, AVG(SALARY_NO) AS AVG_SALARY
+FROM EMPLOYEE
+GROUP BY DEPT_NO
+HAVING COUNT(EMP_No) > 1;  
+
+-- 4
+SELECT E_NAME, DEPT_NO, SALARY_NO
+FROM EMPLOYEE
+WHERE SALARY_NO > (
+    SELECT MIN(SALARY_NO) 
+    FROM EMPLOYEE 
+    WHERE DEPT_NO = 30
+);
+
+
+
+-- Exercise 3
+-- 1
+
+-- 2
+SELECT E_NAME, SALARY_NO, 0.15*Employee.SALARY_NO AS Hike
+from Employee;
+
+-- 3
+SELECT E_NAME, EMP_no, Mgr_no, SALARY_NO
+FROM EMPLOYEE E1
+WHERE SALARY_NO = (
+    SELECT MIN(SALARY_NO) 
+    FROM EMPLOYEE E2 
+    WHERE E1.Mgr_no = E2.Mgr_no
+);
+
+-- 4
+Select Dept_no , Avg(Salary_no) as Avg_Salary
+from EMPLOYEE
+GROUP by Dept_no;
+
+-- 5
+Select Dept_no , Avg(Salary_no) as Avg_Salary
+from EMPLOYEE
+GROUP by Dept_no
+having Count(Emp_no)>1;
+-- 6
+
+-- Exercise 4
+-- 1
+Select Dept_no,Count(Employee.Emp_no) as Num_Employees
+from Employee
+where Employee.Dept_no = 20
+Group by Dept_no;
+
+-- 2
+Select Job, Min(Employee.SALARY_NO) as Min_Salary
+from Employee
+where Job = 'clerk'
+Group by Job;
+
+-- 3
+Select Min(Salary_no) as Min_Salary, Max(Salary_no) as Max_Salary, Avg(Salary_no) as Avg_Salary
+from Employee;
+
+-- 4
+Select Job, Min(Salary_no) as Min_Salary, Max(Salary_no) as MAX_Salary
+from EMPLOYEE
+Group by Job;
+
+-- 5
+SELECT E_NAME
+from EMPLOYEE
+Order by EMPLOYEE.E_NAME DESC;
+
+-- 6
+SELECT Emp_no ,Employee.E_NAME
+from EMPLOYEE
+Order by Emp_no ;
+
+
+
 
 -- Create Department Table
 CREATE TABLE Department (
