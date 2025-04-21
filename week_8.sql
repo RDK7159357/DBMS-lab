@@ -45,3 +45,7 @@ GRANT CREATE SESSION TO C##second_user;
 
 CONNECT your_user/your_password@your_service_name;
 
+-- 8.5
+
+DROP USER user_name CASCADE;
+-- Or DROP USER "User123" CASCADE;
